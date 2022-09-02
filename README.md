@@ -5,11 +5,15 @@ This is a distributed HTTP cache module for Caddy based on [Souin](https://githu
 
 ## Features
 
+ * Supports both local and distributed storage options:  [Badger](https://dgraph.io/badger) and [Olric](https://olric.io/).
+ * Supports multiple caches, which can be conditionally invoked using [Caddy's Matchers](https://caddyserver.com/docs/caddyfile/matchers#syntax).
+ * REST API to purge the cache and list stored resources.
+ * Prometheus API.
  * [RFC 7234](https://httpwg.org/specs/rfc7234.html) compliant HTTP Cache.
  * Sets [the `Cache-Status` HTTP Response Header](https://httpwg.org/http-extensions/draft-ietf-httpbis-cache-header.html)
- * REST API to purge the cache and list stored resources.
- * Builtin support for distributed cache.
+ * CDN interface provided by [Souin](https://github.com/Darkweak/Souin) . 
 
+ 
 ## Installation
 The easiest way to install it would be to first install caddy, and then add in the plug in with the command
 

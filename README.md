@@ -1,7 +1,7 @@
 Caddy Module: http.handlers.cache
 ================================
 
-This is a distributed HTTP cache module for Caddy based on [Souin](https://github.com/darkweak/souin) cache.  
+This is a distributed HTTP cache module for Caddy based on [Souin](https://github.com/darkweak/souin) cache.  Since it is hosted under github.com/caddyserver it is the "official" cache handler.   
 
 ## Features
 
@@ -10,9 +10,45 @@ This is a distributed HTTP cache module for Caddy based on [Souin](https://githu
  * REST API to purge the cache and list stored resources.
  * Builtin support for distributed cache.
 
-## Example Configurations
-There is the fully configuration below
-```caddy
+## Installation
+The easiest way to install it would be to first install caddy, and then add in the plug in with the command
+
+caddy add-package  github.com/caddyserver/cache-handler
+
+It worked for me, but as of September 2022,  when you type 
+
+`caddy`
+
+this is listed as an experimental command,  so the other way to install it is with the xcaddy command. 
+
+xcaddy build v2.5.2  --with github.com/caddyserver/cache-handler
+
+Here you can read more  [ about using xcaddy](https://github.com/caddyserver/xcaddy). 
+
+But just remember that when you use your operating system tools to install caddy, they may also create a service.  So if you use the xcaddy tool to create the executable, copy it onto the existing executable, but also completely stop and restart the service. 
+
+## Configuration
+
+There is not much point in using caching to serve files, the operating system is already pretty good at caching.   It may even be discouraged.  Usually caching is used to serve from a reverse proxy server.  So here is the simplest reverse proxy caddyfile with caching enabled.  
+
+```
+{
+  order cache before reverse_proxy 
+  cache {
+    ttl 10s
+  }
+}
+
+your-domain.com {
+  reverse_proxy http://localhost:8084/
+}
+```
+Remember to change the domain name and port number. 
+Once you get the basics working it should be reasonably easy to add in the other options. [Here is a longer example](https://github.com/caddyserver/cache-handler/blob/master/Caddyfile).
+
+
+Here is the full configuration.
+```
 {
     order cache before rewrite
     log {

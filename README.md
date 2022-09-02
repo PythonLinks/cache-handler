@@ -34,17 +34,19 @@ There is not much point in using caching to serve files, the operating system is
 ```
 {
   order cache before reverse_proxy 
-  cache {
-    ttl 10s
-  }
+
 }
 
 your-domain.com {
+  cache {
+    ttl 10s
+  }
   reverse_proxy http://localhost:8084/
 }
 ```
 Remember to change the domain name and port number. 
 Once you get the basics working it should be reasonably easy to add in the other options. [Here is a longer example](https://github.com/caddyserver/cache-handler/blob/master/Caddyfile).
+And remember to actually test that caching is improving your performance. 
 
 
 Here is the full configuration.
